@@ -1,17 +1,14 @@
+
 import WorkoutCard from "./WorkoutCard";
 
 const API_URL = "https://api.abcz.workers.dev/api/fitlog";
 
 const Library = async () => {
- const response = await fetch(API_URL, {
-  cache: "no-store",
-});
+  const response = await fetch(API_URL, {
+    cache: "no-store",
+  });
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch workouts");
-  }
-
-  const workouts = await response.json();
+  const workouts = response.ok ? await response.json() : [];
 
   return (
     <section
@@ -20,7 +17,6 @@ const Library = async () => {
     >
       <div className="mx-auto max-w-7xl">
 
-        {/* Header */}
         <div className="mb-10">
           <p className="mb-2 text-sm font-bold tracking-[0.2em] text-[#ccff00]">
             WORKOUTS
@@ -35,15 +31,22 @@ const Library = async () => {
           </p>
         </div>
 
-        {/* Workout Cards */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {workouts.map((workout: any) => (
-            <WorkoutCard
-              key={workout.id}
-              workout={workout}
-            />
-          ))}
-        </div>
+        {workouts.length === 0 ? (
+          <div className="rounded-2xl border border-gray-800 bg-[#111111] p-10 text-center">
+            <p className="text-gray-400">
+              Workouts are temporarily unavailable.
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {workouts.map((workout: any) => (
+              <WorkoutCard
+                key={workout.id}
+                workout={workout}
+              />
+            ))}
+          </div>
+        )}
 
       </div>
     </section>
