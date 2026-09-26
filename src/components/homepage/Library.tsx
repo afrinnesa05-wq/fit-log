@@ -3,7 +3,9 @@ import WorkoutCard from "./WorkoutCard";
 const API_URL = "https://api.abcz.workers.dev/api/fitlog";
 
 const Library = async () => {
-  const response = await fetch(API_URL);
+ const response = await fetch(API_URL, {
+  cache: "no-store",
+});
 
   if (!response.ok) {
     throw new Error("Failed to fetch workouts");
