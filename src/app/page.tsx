@@ -1,5 +1,5 @@
 import React from 'react';
-import Banner from "@/components/homepage/Bannar";
+import Banner from "@/components/homepage/banner";
 import Library from "@/components/homepage/Library";
 
 
